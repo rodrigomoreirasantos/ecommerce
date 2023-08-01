@@ -3,7 +3,7 @@ import axios from 'axios'
 
 // Utilities
 import type Category from '../../types/category.types'
-import env from '../../config/env.config'
+import env from '../config/env.config'
 
 // Styles
 import './categories.styles.css'
@@ -24,7 +24,11 @@ const Categories = () => {
   }
 
   useEffect(() => {
-    fetchCategories()
+    const dataFetch = async () => {
+      await fetchCategories()
+    }
+
+    dataFetch()
   }, [])
 
   return (
