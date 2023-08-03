@@ -26,9 +26,11 @@ const LoginPage = () => {
 
           <LoginSubtitle>Sign with your email</LoginSubtitle>
           <LoginInputContainer>
+            <p>Email</p>
             <CustomInput placeholder="Email" />
           </LoginInputContainer>
           <LoginInputContainer>
+            <p>Password</p>
             <CustomInput placeholder="Password" />
           </LoginInputContainer>
 
