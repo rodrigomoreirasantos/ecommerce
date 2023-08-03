@@ -7,8 +7,13 @@ import {
   HeaderItems,
   HeaderTitle
 } from './header.styles'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const navigate = useNavigate()
+  const handleLoginClick = () => {
+    navigate('/login')
+  }
   return (
     <HeaderContainer>
       <div className="header-item-container">
@@ -17,7 +22,7 @@ const Header = () => {
 
       <HeaderItems>
         <HeaderItem>Explore</HeaderItem>
-        <HeaderItem>Login</HeaderItem>
+        <HeaderItem onClick={handleLoginClick}>Login</HeaderItem>
         <HeaderItem>Create Account</HeaderItem>
         <HeaderItem>
           <BsCart3 size={25} />
