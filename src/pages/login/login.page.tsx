@@ -10,6 +10,7 @@ import {
   LoginInputContainer,
   LoginSubtitle
 } from './login.styles'
+import CustomInput from '../../components/custom-input/custom-input.component'
 
 const LoginPage = () => {
   return (
@@ -18,14 +19,18 @@ const LoginPage = () => {
       <LoginContainer>
         <LoginContent>
           <LoginHeadline>Sign with your account</LoginHeadline>
-          
+
           <CustomButton startIcon={<BsGoogle size={18} />}>
             Sign with Google
           </CustomButton>
 
           <LoginSubtitle>Sign with your email</LoginSubtitle>
-          <LoginInputContainer>{/* Email Input */}</LoginInputContainer>
-          <LoginInputContainer>{/* Password Input */}</LoginInputContainer>
+          <LoginInputContainer>
+            <CustomInput placeholder="Email" />
+          </LoginInputContainer>
+          <LoginInputContainer>
+            <CustomInput placeholder="Password" />
+          </LoginInputContainer>
 
           <CustomButton startIcon={<FiLogIn size={18} />}>Login</CustomButton>
         </LoginContent>
