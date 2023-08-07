@@ -61,6 +61,7 @@ const LoginPage = () => {
             <p>Password</p>
             <CustomInput
               placeholder="Password"
+              type="password"
               hasError={!!errors?.password}
               {...register('password', { required: true })}
             />
