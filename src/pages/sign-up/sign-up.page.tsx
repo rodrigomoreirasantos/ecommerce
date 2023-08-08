@@ -13,9 +13,12 @@ import {
   SignUpInputContainer
 } from './sign-up.styles'
 import InputErrorMessage from '../../components/input-error-message/input-error-message.component'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth, db } from '../../config/firebase.config'
+import { addDoc, collection } from 'firebase/firestore'
 
 interface SignUpForm {
-  name: string
+  firstName: string
   lastName: string
   email: string
   password: string
@@ -30,8 +33,23 @@ const SignUpPage = () => {
     formState: { errors }
   } = useForm<SignUpForm>()
 
-  const handleSubmitPress = (data: SignUpForm) => {
-    console.log({ data })
+  const handleSubmitPress = async (data: SignUpForm) => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
+
+      await addDoc(collection(db, 'users'), {
+        id: userCredentials.user.uid,
+        email: userCredentials.user.email,
+        firstName: data.firstName,
+        lastName: data.lastName
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const watchPassword = watch('password')
@@ -46,11 +64,11 @@ const SignUpPage = () => {
           <SignUpInputContainer>
             <p>Name</p>
             <CustomInput
-              placeholder="Name"
-              hasError={!!errors?.name}
-              {...register('name', { required: true })}
+              placeholder="First Name"
+              hasError={!!errors?.firstName}
+              {...register('firstName', { required: true })}
             />
-            {errors?.name?.type === 'required' && (
+            {errors?.firstName?.type === 'required' && (
               <InputErrorMessage>Name is required</InputErrorMessage>
             )}
           </SignUpInputContainer>
