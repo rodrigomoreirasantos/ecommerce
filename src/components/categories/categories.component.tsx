@@ -6,7 +6,7 @@ import CategoryItem from '../category-item/category-item.component'
 
 // Utilities
 import type Category from '../../types/category.types'
-import env from '../config/env.config'
+import env from '../../config/env.config'
 
 // Styles
 import { CategoriesContainer, CategoriesContent } from './categories.styles'
