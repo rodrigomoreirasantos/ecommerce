@@ -15,6 +15,9 @@ import {
 } from './login.styles'
 import CustomInput from '../../components/custom-input/custom-input.component'
 import InputErrorMessage from '../../components/input-error-message/input-error-message.component'
+import { signInWithPopup } from 'firebase/auth'
+import { auth, googleProvider } from '../../config/firebase.config'
+import { addDoc, getDocs, query, where } from 'firebase/firestore'
 
 interface LoginForm {
   email: string
@@ -29,6 +32,35 @@ const LoginPage = () => {
   } = useForm<LoginForm>()
   const handlePressSubmit = (data: any) => {
     console.log(data)
+  }
+
+  const handleSignInWithGooglePress = async () => {
+    try {
+      const userCredentials = await signInWithPopup(auth, googleProvider)
+
+      const querySnapshot = await getDocs(
+        query(
+          collection(db, 'users'),
+          where('id', '==', userCredentials.user.uid)
+        )
+      )
+      const user = querySnapshot.docs[0]?.data()
+
+      if (!user) {
+        const firstName = userCredentials.user.displayName?.split(' ')[0]
+        const lastName = userCredentials.user.displayName?.split(' ')[1]
+
+        await addDoc(collection(db, 'users'), {
+          id: userCredentials.user.uid,
+          email: userCredentials.user.email,
+          firstName,
+          lastName,
+          provider: 'google'
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <>
