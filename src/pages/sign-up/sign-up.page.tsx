@@ -126,7 +126,9 @@ const SignUpPage = () => {
               <InputErrorMessage>Password is required</InputErrorMessage>
             )}
             {errors?.password?.type === 'minLength' && (
-              <InputErrorMessage>Password must be 6 characteres</InputErrorMessage>
+              <InputErrorMessage>
+                Password must be 6 characteres
+              </InputErrorMessage>
             )}
           </SignUpInputContainer>
           <SignUpInputContainer>
@@ -148,8 +150,10 @@ const SignUpPage = () => {
                 Password Confirmation is required
               </InputErrorMessage>
             )}
-             {errors?.passwordConfirmation?.type === 'minLength' && (
-              <InputErrorMessage>Password must be 6 characteres</InputErrorMessage>
+            {errors?.passwordConfirmation?.type === 'minLength' && (
+              <InputErrorMessage>
+                Password must be 6 characteres
+              </InputErrorMessage>
             )}
             {errors?.passwordConfirmation?.type === 'validate' && (
               <InputErrorMessage>
