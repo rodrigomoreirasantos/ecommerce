@@ -69,7 +69,9 @@ const LoginPage = () => {
         <LoginContent>
           <LoginHeadline>Sign with your account</LoginHeadline>
 
-          <CustomButton startIcon={<BsGoogle size={18} />}>
+          <CustomButton
+            onClick={handleSignInWithGooglePress}
+            startIcon={<BsGoogle size={18} />}>
             Sign with Google
           </CustomButton>
 
