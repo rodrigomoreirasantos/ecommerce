@@ -15,9 +15,15 @@ import { auth } from '../../config/firebase.config'
 
 const Header = () => {
   const navigate = useNavigate()
+
+  const handleLogoClick = () => {
+    navigate('/')
+  }
+
   const handleLoginClick = () => {
     navigate('/login')
   }
+
   const handleSignUpClick = () => {
     navigate('/sign-up')
   }
@@ -25,7 +31,7 @@ const Header = () => {
   return (
     <HeaderContainer>
       <div className="header-item-container">
-        <HeaderTitle>CLUB CLOTHING</HeaderTitle>
+        <HeaderTitle onClick={handleLogoClick}>CLUB CLOTHING</HeaderTitle>
       </div>
 
       <HeaderItems>
