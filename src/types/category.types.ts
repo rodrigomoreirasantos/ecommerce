@@ -1,4 +1,4 @@
-import Product from "./product.types"
+import Product from './product.types'
 
 interface Category {
   id: string
