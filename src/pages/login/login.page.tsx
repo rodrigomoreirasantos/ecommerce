@@ -15,12 +15,18 @@ import {
 } from './login.styles'
 import CustomInput from '../../components/custom-input/custom-input.component'
 import InputErrorMessage from '../../components/input-error-message/input-error-message.component'
-import { signInWithPopup } from 'firebase/auth'
+import {
+  AuthError,
+  AuthErrorCodes,
+  signInWithEmailAndPassword,
+  signInWithPopup
+} from 'firebase/auth'
 import { auth, googleProvider } from '../../config/firebase.config'
 import { addDoc, getDocs, query, where } from 'firebase/firestore'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../contexts/user.context'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../components/loading/loading.component'
 
 interface LoginForm {
   email: string
@@ -31,11 +37,11 @@ const LoginPage = () => {
   const {
     register,
     formState: { errors },
+    setError,
     handleSubmit
   } = useForm<LoginForm>()
-  const handlePressSubmit = (data: any) => {
-    console.log(data)
-  }
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const { isAuthenticated } = useContext(UserContext)
   const navigate = useNavigate()
@@ -45,8 +51,35 @@ const LoginPage = () => {
     }
   }, [isAuthenticated])
 
+  const handleSubmitPress = async (data: LoginForm) => {
+    try {
+      setIsLoading(true)
+
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
+
+      console.log({ userCredentials })
+    } catch (error) {
+      const _error = error as AuthError
+
+      if (_error.code === AuthErrorCodes.INVALID_PASSWORD) {
+        return setError('password', { type: 'mismatch' })
+      }
+
+      if (_error.code === AuthErrorCodes.USER_DELETED) {
+        return setError('email', { type: 'notFound' })
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   const handleSignInWithGooglePress = async () => {
     try {
+      setIsLoading(true)
       const userCredentials = await signInWithPopup(auth, googleProvider)
 
       const querySnapshot = await getDocs(
@@ -71,11 +104,16 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
   return (
     <>
       <Header />
+
+      {isLoading && <Loading />}
+
       <LoginContainer>
         <LoginContent>
           <LoginHeadline>Sign with your account</LoginHeadline>
@@ -123,7 +161,7 @@ const LoginPage = () => {
 
           <CustomButton
             startIcon={<FiLogIn size={18} />}
-            onClick={() => handleSubmit(handlePressSubmit)()}>
+            onClick={() => handleSubmit(handleSubmitPress)()}>
             Login
           </CustomButton>
         </LoginContent>
