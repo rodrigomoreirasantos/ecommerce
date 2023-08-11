@@ -12,6 +12,7 @@ import { auth, db } from './config/firebase.config'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { userConverter } from './converters/firestore.converter'
 import Loading from './components/loading/loading.component'
+import Explore from './pages/explore/explore.page'
 
 const App = () => {
   const [isInitializing, setIsInitializing] = useState(true)
@@ -45,6 +46,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/explore" element={<Explore />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
       </Routes>
