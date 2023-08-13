@@ -6,7 +6,7 @@ import {
   CategoryTitle,
   ProductsContainer
 } from './category-overview.styles'
-import ProductItem from '../product-item.component'
+import ProductItem from '../product-item/product-item.component'
 
 interface CategoryOverviewProps {
   category: Category

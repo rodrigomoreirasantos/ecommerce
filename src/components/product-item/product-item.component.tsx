@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import Product from '../types/product.types'
+import Product from '../../types/product.types'
 import {
   ProductContainer,
   ProductImage,
