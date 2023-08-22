@@ -25,6 +25,7 @@ export const CheckoutTitle = styled.p`
 
 export const CheckoutProducts = styled.div`
   min-width: 650px;
+  max-height: 540px;
   overflow-y: scroll;
   margin-top: 15px;
   margin-bottom: 15px;
