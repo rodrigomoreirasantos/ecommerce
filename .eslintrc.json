@@ -25,7 +25,7 @@
     "@typescript-eslint/promise-function-async": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/space-before-function-paren": "off",
-    "@typescript-eslint/no-confusing-void-expression": "off"
-
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
   }
 }
