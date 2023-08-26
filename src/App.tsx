@@ -16,13 +16,14 @@ import Cart from './components/cart/cart.component'
 import CheckoutPage from './pages/checkout/checkout.pages'
 import AuthenticationGuard from './components/guards/authentication.guard'
 import PaymentConfirmationPage from './pages/payment-confirmation/payment-confirmation.page'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { loginUser, logoutUser } from './store/reducers/user/user.action'
+import { useAppSelector } from './components/hook/redux.user'
 
 const App = () => {
   const [isInitializing, setIsInitializing] = useState(true)
-  const { isAuthenticated } = useSelector(
-    (rootReducer: any) => rootReducer.userReducer
+  const { isAuthenticated } = useAppSelector(
+    (rootReducer) => rootReducer.userReducer
   )
   const dispatch = useDispatch()
 
