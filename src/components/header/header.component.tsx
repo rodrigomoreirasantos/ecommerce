@@ -8,21 +8,22 @@ import {
   HeaderTitle
 } from './header.styles'
 import { useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
-
-import { CartContext } from '../../contexts/cart.context'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { signOut } from 'firebase/auth'
 import { auth } from '../../config/firebase.config'
 import { logoutUser } from '../../store/reducers/user/user.action'
 import { toggleCart } from '../../store/reducers/user/cart/cart.action'
+import { useAppSelector } from '../hook/redux.user'
+import { selectProductsCount } from '../../store/reducers/user/cart/cart.selector'
 
 const Header = () => {
-  const { isAuthenticated } = useSelector(
-    (rootReducer: any) => rootReducer.userReducer
+  const { isAuthenticated } = useAppSelector(
+    (rootReducer) => rootReducer.userReducer
   )
   const dispatch = useDispatch()
-  const { productsCount } = useContext(CartContext)
+
+  const productsCount = useAppSelector(selectProductsCount)
+
   const navigate = useNavigate()
 
   const handleLogoClick = () => {
