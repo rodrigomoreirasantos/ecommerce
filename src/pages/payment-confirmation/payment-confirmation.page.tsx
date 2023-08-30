@@ -11,10 +11,11 @@ import {
 } from 'react-icons/ai'
 import Colors from '../../theme/theme.colors'
 import CustomButton from '../../components/custom-button/custom-button.component'
-import { CartContext } from '../../contexts/cart.context'
+import { useDispatch } from 'react-redux'
+import { clearCartProduct } from '../../store/reducers/user/cart/cart.action'
 
 const PaymentConfirmationPage: FunctionComponent = () => {
-  const { clearProducts } = useContext(CartContext)
+  const dispatch = useDispatch()
   const [searchParams] = useSearchParams()
   const status = searchParams.get('success')
   const isCanceled = searchParams.get('canceled') === 'true'
@@ -22,7 +23,7 @@ const PaymentConfirmationPage: FunctionComponent = () => {
 
   useEffect(() => {
     if (status === 'true') {
-      clearProducts()
+      dispatch(clearCartProduct())
     }
   }, [status])
 

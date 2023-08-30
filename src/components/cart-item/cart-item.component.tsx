@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from 'react'
+import { FunctionComponent } from 'react'
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineClose } from 'react-icons/ai'
 import CartProduct from '../../types/cart.types'
 import {
@@ -8,27 +8,28 @@ import {
   CartItemQuantity,
   RemoveButton
 } from './cart-item.styles'
-import { CartContext } from '../../contexts/cart.context'
+import { useDispatch } from 'react-redux'
+import {
+  decreaseCartProductQuantity,
+  increaseCartProductQuantity,
+  removeProductFromCart
+} from '../../store/reducers/user/cart/cart.action'
 
 interface CartItemProp {
   product: CartProduct
 }
 
 const CartItem: FunctionComponent<CartItemProp> = ({ product }) => {
-  const {
-    removeProductFromCart,
-    increaseProductQuantity,
-    decreaseProductQuantity
-  } = useContext(CartContext)
+  const dispatch = useDispatch()
 
   const handleRemoveClick = () => {
-    removeProductFromCart(product.id)
+    dispatch(removeProductFromCart(product.id))
   }
   const handleIncreaseClick = () => {
-    increaseProductQuantity(product.id)
+    dispatch(increaseCartProductQuantity(product.id))
   }
   const handleDecreaseClick = () => {
-    decreaseProductQuantity(product.id)
+    dispatch(decreaseCartProductQuantity(product.id))
   }
 
   return (
